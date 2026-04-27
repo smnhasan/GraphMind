@@ -31,8 +31,8 @@ seed:
 	@echo "Seeding sample data (placeholder - implement later)"
 
 test:
-	cd server && python -m pytest tests/server/ -v
-	cd client && npm test || echo "Client tests not yet added"
+	@echo "Running server tests..."
+	PYTHONPATH=. python -m pytest tests/server/ -v --tb=short
 
 clean:
 	docker compose down -v
