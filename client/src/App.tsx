@@ -1,13 +1,15 @@
+import GraphCanvas from './components/canvas/GraphCanvas';
 import LiveFeed from './components/ingestion/LiveFeed';
+import Minimap from './components/canvas/Minimap';
+import Legend from './components/canvas/Legend';
 
 function App() {
   return (
-    <div style={{ padding: '3rem', fontFamily: 'system-ui', textAlign: 'center' }}>
-      <h1>🌐 GraphMind — Phase 2 Live</h1>
-      <p><strong>Real-time WebSocket Ingestion Active</strong></p>
-      <p>Send events via API or test tools → see them appear live on the right.</p>
-      
+    <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+      <GraphCanvas />
       <LiveFeed />
+      <Minimap />
+      <Legend />
     </div>
   );
 }
