@@ -4,11 +4,12 @@ from core.config import settings
 from api.routes.nodes import router as nodes_router
 from api.routes.edges import router as edges_router
 from api.routes.import_export import router as import_router
+from api.websocket import router as websocket_router
 
 app = FastAPI(
     title="GraphMind API",
     description="Real-time Graph Database & Visualization Platform",
-    version="0.1.0"
+    version="0.2.0"
 )
 
 app.add_middleware(
@@ -22,8 +23,9 @@ app.add_middleware(
 app.include_router(nodes_router, prefix="/api/nodes", tags=["nodes"])
 app.include_router(edges_router, prefix="/api/edges", tags=["edges"])
 app.include_router(import_router, prefix="/api", tags=["import"])
+app.include_router(websocket_router, prefix="/api", tags=["websocket"])
 
 @app.get("/")
 async def root():
-    return {"message": "🚀 GraphMind API is running"}
+    return {"message": "🚀 GraphMind API is running - WebSocket ready at /api/ws"}
     

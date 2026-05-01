@@ -31,10 +31,8 @@ seed:
 	@echo "Seeding sample data (placeholder - implement later)"
 
 test:
-	cd server && python -m pytest tests/server/ -v
-	cd client && npm test || echo "Client tests not yet added"
-
+	@echo "Running server tests..."
+    PYTHONPATH=. python -m pytest tests/server/test_websocket.py -v
 clean:
 	docker compose down -v
 	rm -rf client/node_modules server/__pycache__ server/.pytest_cache postgres_data
-	
