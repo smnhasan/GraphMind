@@ -1,12 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-# Use absolute imports from server root
-from server.core.config import settings
-from server.api.routes.nodes import router as nodes_router
-from server.api.routes.edges import router as edges_router
-from server.api.routes.import_export import router as import_router
-from server.api.websocket import router as websocket_router
+from core.config import settings
+from api.routes.nodes import router as nodes_router
+from api.routes.edges import router as edges_router
+from api.routes.import_export import router as import_router
+from api.websocket import router as websocket_router
 
 app = FastAPI(
     title="GraphMind API",
