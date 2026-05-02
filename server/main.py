@@ -6,6 +6,8 @@ from api.routes.edges import router as edges_router
 from api.routes.import_export import router as import_router
 from api.websocket import router as websocket_router
 from api.routes.query import router as query_router
+from api.routes.analytics import router as analytics_router
+
 
 
 app = FastAPI(
@@ -27,6 +29,7 @@ app.include_router(edges_router, prefix="/api/edges", tags=["edges"])
 app.include_router(import_router, prefix="/api", tags=["import"])
 app.include_router(websocket_router, prefix="/api", tags=["websocket"])
 app.include_router(query_router, prefix="/api", tags=["query"])
+app.include_router(analytics_router, prefix="/api", tags=["analytics"])
 
 @app.get("/")
 async def root():
