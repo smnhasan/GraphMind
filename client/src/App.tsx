@@ -1,15 +1,15 @@
 import GraphCanvas from './components/canvas/GraphCanvas';
+import Toolbar from './components/ui/Toolbar';
+import Sidebar from './components/ui/Sidebar';
 import LiveFeed from './components/ingestion/LiveFeed';
-import Minimap from './components/canvas/Minimap';
-import Legend from './components/canvas/Legend';
 
 function App() {
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+      <Toolbar />
       <GraphCanvas />
+      <Sidebar />
       <LiveFeed />
-      <Minimap />
-      <Legend />
     </div>
   );
 }
