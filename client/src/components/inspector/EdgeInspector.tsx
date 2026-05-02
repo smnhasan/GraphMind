@@ -1,0 +1,34 @@
+import React from 'react';
+import { GraphEdge } from '../../types/graph';
+import PropertyTable from './PropertyTable';
+import { useGraphStore } from '../../store/graphSlice';
+
+interface Props {
+  edge: GraphEdge;
+}
+
+export default function EdgeInspector({ edge }: Props) {
+  const { removeEdge } = useGraphStore();
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h2>Edge Inspector</h2>
+      <p><strong>ID:</strong> {edge.id}</p>
+      <p><strong>Source:</strong> {edge.source}</p>
+      <p><strong>Target:</strong> {edge.target}</p>
+      <p><strong>Label:</strong> {edge.label}</p>
+      
+      <PropertyTable 
+        properties={edge.properties} 
+        onSave={(newProps) => console.log('Updated edge properties:', newProps)} 
+      />
+
+      <button 
+        onClick={() => removeEdge(edge.id)} 
+        style={{ marginTop: 16, color: 'red', padding: '8px 16px' }}
+      >
+        Delete Edge
+      </button>
+    </div>
+  );
+}
