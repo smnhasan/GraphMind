@@ -7,3 +7,4 @@ pydantic-settings==2.5.2
 python-dotenv==1.0.1
 python-multipart==0.0.9
 websockets==13.1
+networkx==3.4.2
