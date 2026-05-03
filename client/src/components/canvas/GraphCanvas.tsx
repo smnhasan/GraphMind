@@ -1,23 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, useReducer } from 'react';
 import * as d3 from 'd3';
 import { ForceSimulation } from './ForceSimulation';
 import { NodeRenderer } from './NodeRenderer';
 import { EdgeRenderer } from './EdgeRenderer';
 import { useGraphStore } from '../../store/graphSlice';
 import { useWebSocket } from '../../hooks/useWebSocket';
-import { GraphEvent } from '../../types/events';
+
 
 export default function GraphCanvas() {
   const svgRef = useRef<SVGSVGElement>(null);
   const simulationRef = useRef<ForceSimulation | null>(null);
-  const { nodes, edges, addNode, addEdge, setSelectedNode, setSelectedEdge } = useGraphStore();
+  const { nodes, edges, addNode, addEdge, setSelectedNode } = useGraphStore();
   const { events } = useWebSocket();
+
+  const [, forceRender] = useReducer(x => x + 1, 0);
 
   useEffect(() => {
     if (!svgRef.current) return;
 
     const svg = d3.select(svgRef.current);
-    const g = svg.append('g');
+    const g = svg.select<SVGGElement>('g.main-group');
 
     // Zoom & Pan
     const zoom = d3.zoom<SVGSVGElement, unknown>()
@@ -26,6 +28,7 @@ export default function GraphCanvas() {
     svg.call(zoom);
 
     simulationRef.current = new ForceSimulation();
+    simulationRef.current.onTick(() => forceRender());
 
     const updateSimulation = () => {
       if (simulationRef.current) {
@@ -65,11 +68,11 @@ export default function GraphCanvas() {
     <div style={{ width: '100%', height: '100vh', background: '#0f172a' }}>
       <svg ref={svgRef} width="100%" height="100%" style={{ background: '#0f172a' }}>
         <defs>
-          <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
           </marker>
         </defs>
-        <g>
+        <g className="main-group">
           {edges.map(edge => (
             <EdgeRenderer key={edge.id} edge={edge} isSelected={false} />
           ))}

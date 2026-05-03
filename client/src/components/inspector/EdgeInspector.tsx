@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { GraphEdge } from '../../types/graph';
 import PropertyTable from './PropertyTable';
 import { useGraphStore } from '../../store/graphSlice';

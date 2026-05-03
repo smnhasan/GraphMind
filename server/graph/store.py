@@ -17,10 +17,11 @@ class GraphStore:
                 updated_at = NOW()
             RETURNING id, label, properties, created_at, updated_at
         """)
+        import json
         result = db.execute(query, {
             "id": node_id,
             "label": label,
-            "properties": properties
+            "properties": json.dumps(properties)
         })
         db.commit()
         row = result.fetchone()
@@ -40,11 +41,12 @@ class GraphStore:
             ON CONFLICT DO NOTHING
             RETURNING id, source_id, target_id, label, properties, created_at, updated_at
         """)
+        import json
         result = db.execute(query, {
             "source_id": source_id,
             "target_id": target_id,
             "label": label,
-            "properties": properties
+            "properties": json.dumps(properties)
         })
         db.commit()
         

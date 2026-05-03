@@ -20,5 +20,19 @@ def create_edge(edge: EdgeCreate, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=List[Edge])
 def get_edges(db: Session = Depends(get_db)):
-    return []  # placeholder
+    from sqlalchemy import text
+    query = text("SELECT id, source_id, target_id, label, properties, created_at, updated_at FROM edges")
+    result = db.execute(query)
+    edges = []
+    for row in result:
+        edges.append(Edge(
+            id=row.id,
+            source_id=row.source_id,
+            target_id=row.target_id,
+            label=row.label,
+            properties=row.properties,
+            created_at=row.created_at,
+            updated_at=row.updated_at
+        ))
+    return edges
     

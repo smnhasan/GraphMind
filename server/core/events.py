@@ -34,11 +34,13 @@ class EdgeRemoved(GraphEvent):
 
 # Event bus (in-memory for now, can be replaced with Redis later)
 active_connections = []
+user_presence = {}  # client_id -> username
 
-async def broadcast_event(event: GraphEvent):
-    """Broadcast event to all connected WebSocket clients"""
-    for connection in active_connections[:]:
+async def broadcast_event(event, exclude=None):
+    for ws in active_connections[:]:
+        if ws == exclude: continue
         try:
-            await connection.send_json(event.model_dump())
+            await ws.send_json(event.model_dump())
         except:
-            active_connections.remove(connection)
+            active_connections.remove(ws)
+            

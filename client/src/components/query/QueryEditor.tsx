@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQueryStore } from '../../store/querySlice';
 
 export default function QueryEditor() {

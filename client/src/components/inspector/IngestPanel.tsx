@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGraphStore } from '../../store/graphSlice';
 
 export default function IngestPanel() {

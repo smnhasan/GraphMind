@@ -26,7 +26,7 @@ export const useGraphStore = create<GraphStore>((set) => ({
     edges: state.edges.filter(e => e.id !== id)
   })),
   setSelectedNode: (id) => set({ selectedNodeId: id }),
-  setSelectedEdge: (id) => set({ selectedEdgeId: id }),
+  setSelectedEdge: (id) => set({ selectedEdgeId: id !== null ? String(id) : null }),
   setGraph: (nodes, edges) => set({ nodes, edges }),
 }));
 

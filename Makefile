@@ -7,8 +7,9 @@ help:
 	@echo "  make down       - Stop all services"
 	@echo "  make logs       - Follow backend logs"
 	@echo "  make migrate    - Run database migrations"
-	@echo "  make seed       - Seed sample data (TODO)"
+	@echo "  make seed       - Seed sample data"
 	@echo "  make test       - Run tests"
+	@echo "  make clean      - Clean everything"
 
 dev:
 	docker compose up --build
@@ -23,16 +24,19 @@ logs:
 	docker compose logs -f backend
 
 migrate:
-	@echo "Running SQL migrations..."
-	# Migrations are auto-run on first postgres start via docker-entrypoint-initdb.d
-	# You can also run manually inside the container if needed.
+	@echo "Running migrations..."
+	docker compose exec backend python -c "import os; from sqlalchemy import text; from core.database import engine; conn = engine.connect(); [conn.execute(text(open(os.path.join('migrations', f)).read())) for f in sorted(os.listdir('migrations')) if f.endswith('.sql')]; conn.commit(); conn.close(); print('Migrations applied.')"
 
 seed:
-	@echo "Seeding sample data (placeholder - implement later)"
+	@echo "Seeding sample data..."
+	make migrate
+	docker compose exec backend python seed.py
 
 test:
 	@echo "Running server tests..."
-    PYTHONPATH=. python -m pytest tests/server/test_websocket.py -v
+	PYTHONPATH=. python -m pytest tests/server/ -v --tb=short
+
 clean:
 	docker compose down -v
-	rm -rf client/node_modules server/__pycache__ server/.pytest_cache postgres_data
+	rm -rf client/node_modules server/__pycache__ .pytest_cache postgres_data
+	

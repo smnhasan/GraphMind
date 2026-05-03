@@ -8,3 +8,16 @@ export const exportGraph = (nodes: any[], edges: any[]) => {
   a.click();
   URL.revokeObjectURL(url);
 };
+
+
+export const exportToSVG = (svgElement: SVGSVGElement) => {
+  const serializer = new XMLSerializer();
+  const svgString = serializer.serializeToString(svgElement);
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'graphmind-export.svg';
+  a.click();
+  URL.revokeObjectURL(url);
+};

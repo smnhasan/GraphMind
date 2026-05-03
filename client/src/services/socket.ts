@@ -7,7 +7,8 @@ class SocketService {
   connect() {
     if (this.socket?.readyState === WebSocket.OPEN) return;
 
-    this.socket = new WebSocket('ws://localhost:8000/api/ws');
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    this.socket = new WebSocket(`${wsProtocol}//${window.location.host}/api/ws`);
 
     this.socket.onmessage = (event) => {
       try {

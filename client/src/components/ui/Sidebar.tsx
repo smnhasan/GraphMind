@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useUIStore } from '../../store/uiSlice';
 import NodeInspector from '../inspector/NodeInspector';
 import EdgeInspector from '../inspector/EdgeInspector';

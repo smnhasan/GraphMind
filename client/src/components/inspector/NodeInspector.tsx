@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { GraphNode } from '../../types/graph';
 import PropertyTable from './PropertyTable';
 import { useGraphStore } from '../../store/graphSlice';

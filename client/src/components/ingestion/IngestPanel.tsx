@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGraphStore } from '../../store/graphSlice';
 
 export default function IngestPanel() {
@@ -20,16 +20,16 @@ export default function IngestPanel() {
   return (
     <div style={{ padding: 20 }}>
       <h2>Quick Node Ingestion</h2>
-      <input 
-        placeholder="Node ID (optional)" 
-        value={nodeId} 
-        onChange={(e) => setNodeId(e.target.value)} 
+      <input
+        placeholder="Node ID (optional)"
+        value={nodeId}
+        onChange={(e) => setNodeId(e.target.value)}
         style={{ display: 'block', marginBottom: 8, width: '100%' }}
       />
-      <input 
-        placeholder="Label" 
-        value={label} 
-        onChange={(e) => setLabel(e.target.value)} 
+      <input
+        placeholder="Label"
+        value={label}
+        onChange={(e) => setLabel(e.target.value)}
         style={{ display: 'block', marginBottom: 12, width: '100%' }}
       />
       <button onClick={handleAddNode} style={{ padding: '8px 16px' }}>Add Node to Graph</button>

@@ -19,7 +19,19 @@ def create_node(node: NodeCreate, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=List[Node])
 def get_nodes(db: Session = Depends(get_db)):
-    return []  # placeholder
+    from sqlalchemy import text
+    query = text("SELECT id, label, properties, created_at, updated_at FROM nodes")
+    result = db.execute(query)
+    nodes = []
+    for row in result:
+        nodes.append(Node(
+            id=row.id,
+            label=row.label,
+            properties=row.properties,
+            created_at=row.created_at,
+            updated_at=row.updated_at
+        ))
+    return nodes
 
 @router.get("/{node_id}", response_model=Node)
 def get_node(node_id: str, db: Session = Depends(get_db)):

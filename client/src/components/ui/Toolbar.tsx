@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useUIStore } from '../../store/uiSlice';
 
 export default function Toolbar() {

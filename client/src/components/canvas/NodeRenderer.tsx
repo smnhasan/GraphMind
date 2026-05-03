@@ -12,7 +12,11 @@ export const NodeRenderer: React.FC<NodeRendererProps> = ({ node, isSelected, on
   const size = Math.max(8, Math.min(20, 8 + Object.keys(node.properties).length));
 
   return (
-    <g onClick={() => onClick(node)} style={{ cursor: 'pointer' }}>
+    <g 
+      onClick={() => onClick(node)} 
+      style={{ cursor: 'pointer' }}
+      transform={`translate(${node.x || 0}, ${node.y || 0})`}
+    >
       <circle
         r={size}
         fill={color}
